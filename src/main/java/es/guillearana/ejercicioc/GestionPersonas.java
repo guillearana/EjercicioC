@@ -23,7 +23,7 @@ public class GestionPersonas extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // Cargar el archivo FXML que define la interfaz de usuario.
-        FXMLLoader fxmlLoader = new FXMLLoader(GestionPersonas.class.getResource("EjercicioC.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GestionPersonas.class.getResource("hello-view.fxml"));
 
         // Crear una nueva escena a partir del contenido cargado del FXML.
         Scene scene = new Scene(fxmlLoader.load(), 967, 591);
