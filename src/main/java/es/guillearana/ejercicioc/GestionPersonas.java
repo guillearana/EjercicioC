@@ -11,14 +11,17 @@ import java.io.IOException;
 /**
  * Clase principal para la gestión de personas en la aplicación.
  * Hereda de {@link javafx.application.Application} para ejecutar una aplicación de JavaFX.
+ * Esta clase contiene el método `start` que configura y muestra la interfaz gráfica de usuario (GUI).
  */
 public class GestionPersonas extends Application {
 
     /**
      * Método de entrada para iniciar la interfaz gráfica de la aplicación.
+     * Este método se ejecuta automáticamente cuando la aplicación es lanzada usando JavaFX.
+     * Carga la interfaz definida en el archivo FXML, establece el título de la ventana y ajusta la escena.
      *
-     * @param stage La ventana principal (o "escenario") de la aplicación.
-     * @throws IOException Si ocurre algún error al cargar el archivo FXML.
+     * @param stage La ventana principal (o "escenario") de la aplicación, proporcionada por el sistema JavaFX.
+     * @throws IOException Si ocurre algún error al cargar el archivo FXML, como si el archivo no existe.
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -31,10 +34,10 @@ public class GestionPersonas extends Application {
         // Establecer el título de la ventana.
         stage.setTitle("Personas");
 
-        // En tu método start o constructor, añade:
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/imagenes/agenda.png"))); // Cambia el nombre del archivo por el de tu icono.
+        // Añadir un icono a la ventana. Cambia el nombre del archivo por el de tu icono en la ruta correcta.
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/imagenes/agenda.png")));
 
-        // Establecer dimensiones mínimas de la ventana.
+        // Establecer las dimensiones mínimas para la ventana principal.
         stage.setMinWidth(550);
         stage.setMinHeight(550);
 
@@ -47,6 +50,7 @@ public class GestionPersonas extends Application {
 
     /**
      * Método main que lanza la aplicación JavaFX.
+     * Este es el punto de entrada de la aplicación. Llama al método {@link #launch(String...)} que inicia la aplicación JavaFX.
      *
      * @param args Argumentos de línea de comandos (si los hay).
      */

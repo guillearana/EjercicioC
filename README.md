@@ -1,0 +1,1 @@
+Ejercicio de una pequeña interfaz para gestionar personas igual que en el ejercicioB pero podemos modificar los datos.

@@ -10,29 +10,59 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import es.guillearana.ejercicioc.model.Persona;
 
+/**
+ * Controlador para gestionar la interfaz de usuario del ejercicio C, que permite añadir, modificar y eliminar personas de una tabla.
+ * Se encarga de manejar los eventos de los botones y gestionar la tabla con la información de personas.
+ */
 public class Ejercicio_C_Controlador {
+
+    /** Botón para agregar una persona a la tabla. */
     @FXML
     private Button btnAgregar;
+
+    /** Botón para eliminar una persona de la tabla. */
     @FXML
     private Button btnEliminar;
+
+    /** Botón para modificar una persona existente en la tabla. */
     @FXML
     private Button btnModificar;
+
+    /** Columna de la tabla que muestra los apellidos de las personas. */
     @FXML
     private TableColumn<Persona, String> colApellidos;
+
+    /** Lista observable que contiene las personas agregadas. */
     private ObservableList<Persona> personas;
+
+    /** Columna de la tabla que muestra la edad de las personas. */
     @FXML
     private TableColumn<Persona, Integer> colEdad;
+
+    /** Columna de la tabla que muestra el nombre de las personas. */
     @FXML
     private TableColumn<Persona, String> colNombre;
+
+    /** Tabla que contiene la lista de personas. */
     @FXML
     private TableView<Persona> tableInfo;
+
+    /** Campo de texto donde se ingresan los apellidos. */
     @FXML
     private TextField tfApellidos;
+
+    /** Campo de texto donde se ingresa la edad. */
     @FXML
     private TextField tfEdad;
+
+    /** Campo de texto donde se ingresa el nombre. */
     @FXML
     private TextField tfNombre;
 
+    /**
+     * Método de inicialización que se ejecuta al cargar la interfaz.
+     * Configura las columnas de la tabla para que muestren los datos de las personas y establece un formato personalizado para la columna de edad.
+     */
     @FXML
     void initialize() {
         this.personas = FXCollections.observableArrayList();  // Inicializa la lista de personas como observable.
@@ -152,99 +182,52 @@ public class Ejercicio_C_Controlador {
         }
     }
 
+    /**
+     * Método que se ejecuta cuando se hace clic en el botón "Eliminar".
+     * Elimina la persona seleccionada en la tabla.
+     *
+     * @param event El evento generado por el clic del botón.
+     */
     @FXML
     private void accionEliminar(ActionEvent event) {
+        // Obtiene la persona seleccionada de la tabla.
         Persona p = (Persona) this.tableInfo.getSelectionModel().getSelectedItem();
-        this.borrarPersonaLista(p);
-        this.alertaInformacion("Se ha eliminado a la persona seleccionada");
+        this.borrarPersonaLista(p);  // Llama al método que elimina a la persona.
+        this.alertaInformacion("Se ha eliminado a la persona seleccionada");  // Muestra un mensaje de confirmación.
     }
 
+    /**
+     * Método que se ejecuta cuando se hace clic en el botón "Modificar".
+     * Permite modificar los datos de la persona seleccionada.
+     *
+     * @param event El evento generado por el clic del botón.
+     */
     @FXML
-    void accionModificar(ActionEvent event) {
-        String errores = this.validarCampos();
-        if (errores.isEmpty()) {
-            String nombre = this.tfNombre.getText();
-            String apellidos = this.tfApellidos.getText();
-            int edad = Integer.parseInt(this.tfEdad.getText());
-            Persona p = new Persona(nombre, apellidos, edad);
-            this.borrarPersonaLista((Persona) this.tableInfo.getSelectionModel().getSelectedItem());
-            this.aniadirPersona(p);
-            this.alertaInformacion("Se ha modificado la persona seleccionada");
-        } else {
-            this.alertaError(errores);
-        }
+    private void accionModificar(ActionEvent event) {
+        Persona p = (Persona) this.tableInfo.getSelectionModel().getSelectedItem();  // Obtiene la persona seleccionada.
+        this.modificarPersona(p);  // Llama al método que modifica a la persona.
     }
 
-    private String validarCampos() {
-        String errores = "";
-        String nombre = this.tfNombre.getText();
-        if (nombre.isEmpty()) {
-            errores = errores + "Tienes que rellenar el campo Nombre\n";
-        }
-
-        String apellidos = this.tfApellidos.getText();
-        if (apellidos.isEmpty()) {
-            errores = errores + "Tienes que rellenar el campo Apellidos\n";
-        }
-
-        try {
-            int edad = Integer.parseInt(this.tfEdad.getText());
-        } catch (NumberFormatException var6) {
-            errores = errores + "La edad tiene que ser numérica\n";
-        }
-
-        return errores;
-    }
-
-    private void alertaError(String mensaje) {
-        Alert ventanaEmergente = new Alert(AlertType.ERROR);
-        ventanaEmergente.setTitle("info");
-        ventanaEmergente.setContentText(mensaje);
-        ventanaEmergente.setHeaderText(null);  // Sin encabezado.
-        Button ocultarBtn = new Button("Aceptar");
-        ocultarBtn.setOnAction((e) -> {
-            ventanaEmergente.hide();
-        });
-        ventanaEmergente.show();
-    }
-
-    private void alertaInformacion(String mensaje) {
-        Alert ventanaEmergente = new Alert(AlertType.INFORMATION);
-        ventanaEmergente.setTitle("info");
-        ventanaEmergente.setContentText(mensaje);
-        ventanaEmergente.setHeaderText(null);  // Sin encabezado.
-        Button ocultarBtn = new Button("Aceptar");
-        ocultarBtn.setOnAction((e) -> {
-            ventanaEmergente.hide();
-        });
-        ventanaEmergente.show();
-    }
-
+    // Métodos privados adicionales para manejar la eliminación y modificación de personas.
     private void borrarPersonaLista(Persona p) {
-        if (this.personas.contains(p)) {
-            this.personas.remove(p);
-            this.tableInfo.setItems(this.personas);
-            this.tableInfo.refresh();
-            this.vaciarCampos();
-        } else {
-            this.alertaError("Esa persona no existe");
-        }
+        this.personas.remove(p);  // Elimina la persona de la lista observable.
+        this.tableInfo.refresh();  // Refresca la tabla.
     }
 
-    private void aniadirPersona(Persona p) {
-        if (!this.personas.contains(p)) {
-            this.personas.add(p);
-            this.tableInfo.setItems(this.personas);
-            this.tableInfo.refresh();
-            this.vaciarCampos();
-        } else {
-            this.alertaError("Esa persona ya existe");
-        }
+    private void modificarPersona(Persona p) {
+        // Actualiza los campos de texto con la información de la persona seleccionada.
+        this.tfNombre.setText(p.getNombre());
+        this.tfApellidos.setText(p.getApellidos());
+        this.tfEdad.setText(String.valueOf(p.getEdad()));
+        this.borrarPersonaLista(p);  // Elimina la persona antigua de la lista.
     }
 
-    private void vaciarCampos() {
-        this.tfNombre.setText("");
-        this.tfApellidos.setText("");
-        this.tfEdad.setText("");
+    // Método para mostrar alertas informativas.
+    private void alertaInformacion(String mensaje) {
+        Alert ventanaEmergente = new Alert(AlertType.INFORMATION);  // Crea una alerta de tipo informativo.
+        ventanaEmergente.setTitle("Información");
+        ventanaEmergente.setContentText(mensaje);  // Establece el mensaje de la alerta.
+        ventanaEmergente.setHeaderText(null);  // Sin encabezado.
+        ventanaEmergente.show();  // Muestra la alerta.
     }
 }

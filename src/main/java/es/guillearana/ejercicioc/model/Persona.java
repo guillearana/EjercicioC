@@ -3,7 +3,14 @@ package es.guillearana.ejercicioc.model;
 import java.util.Objects;
 
 /**
- * Clase que representa a una Persona con atributos como nombre, apellidos, edad e idPersona.
+ * La clase {@code Persona} representa a una persona con atributos como nombre, apellidos, edad e idPersona.
+ * Esta clase proporciona métodos para acceder y modificar estos atributos, así como para comparar objetos
+ * de tipo {@code Persona}.
+ *
+ * <p>
+ * Los objetos de la clase {@code Persona} se consideran iguales si tienen el mismo nombre, apellidos y edad,
+ * aunque su {@code idPersona} sea diferente.
+ * </p>
  */
 public class Persona {
     private String nombre;
@@ -14,7 +21,15 @@ public class Persona {
     /**
      * Retorna una representación en forma de cadena de la persona.
      *
-     * @return una cadena con los valores de nombre, apellidos, edad y idPersona.
+     * <p>
+     * El formato de la cadena es el siguiente:
+     * </p>
+     *
+     * <pre>
+     * Persona [nombre=Nombre, apellidos=Apellidos, edad=Edad, idPersona=ID]
+     * </pre>
+     *
+     * @return una cadena con los valores de nombre, apellidos, edad e idPersona.
      */
     @Override
     public String toString() {
@@ -22,9 +37,14 @@ public class Persona {
     }
 
     /**
-     * Genera un código hash basado en los atributos apellidos, edad y nombre.
+     * Genera un código hash basado en los atributos {@code nombre}, {@code apellidos} y {@code edad}.
      *
-     * @return el código hash de la persona.
+     * <p>
+     * Este método es útil para almacenar objetos de tipo {@code Persona} en colecciones que usan tablas hash,
+     * como {@code HashSet} o {@code HashMap}.
+     * </p>
+     *
+     * @return el código hash generado a partir de los atributos de la persona.
      */
     @Override
     public int hashCode() {
@@ -33,10 +53,14 @@ public class Persona {
 
     /**
      * Compara si dos objetos son iguales.
-     * Dos personas son iguales si tienen el mismo nombre, apellidos y edad.
      *
-     * @param obj el objeto a comparar.
-     * @return true si los objetos son iguales, false en caso contrario.
+     * <p>
+     * Dos objetos de tipo {@code Persona} se consideran iguales si tienen el mismo
+     * {@code nombre}, {@code apellidos} y {@code edad}, independientemente de su {@code idPersona}.
+     * </p>
+     *
+     * @param obj el objeto a comparar con esta persona.
+     * @return {@code true} si los objetos son iguales, {@code false} en caso contrario.
      */
     @Override
     public boolean equals(Object obj) {
@@ -51,11 +75,16 @@ public class Persona {
     }
 
     /**
-     * Constructor que inicializa los atributos nombre, apellidos y edad.
+     * Constructor que inicializa los atributos {@code nombre}, {@code apellidos} y {@code edad} de la persona.
      *
-     * @param nombre     El nombre de la persona.
-     * @param apellidos  Los apellidos de la persona.
-     * @param edad       La edad de la persona.
+     * <p>
+     * Este constructor puede ser usado cuando no se requiere un {@code idPersona}, por ejemplo,
+     * en casos donde la identificación única se genera posteriormente.
+     * </p>
+     *
+     * @param nombre    El nombre de la persona.
+     * @param apellidos Los apellidos de la persona.
+     * @param edad      La edad de la persona.
      */
     public Persona(String nombre, String apellidos, int edad) {
         this.nombre = nombre;
@@ -64,12 +93,17 @@ public class Persona {
     }
 
     /**
-     * Constructor que inicializa los atributos idPersona, nombre, apellidos y edad.
+     * Constructor que inicializa los atributos {@code idPersona}, {@code nombre}, {@code apellidos} y {@code edad} de la persona.
      *
-     * @param idPersona  El ID único de la persona.
-     * @param nombre     El nombre de la persona.
-     * @param apellidos  Los apellidos de la persona.
-     * @param edad       La edad de la persona.
+     * <p>
+     * Este constructor puede ser usado cuando ya se tiene un {@code idPersona} definido, por ejemplo, al recuperar
+     * una persona de una base de datos.
+     * </p>
+     *
+     * @param idPersona El identificador único de la persona.
+     * @param nombre    El nombre de la persona.
+     * @param apellidos Los apellidos de la persona.
+     * @param edad      La edad de la persona.
      */
     public Persona(int idPersona, String nombre, String apellidos, int edad) {
         this.idPersona = idPersona;
@@ -79,18 +113,18 @@ public class Persona {
     }
 
     /**
-     * Obtiene el ID de la persona.
+     * Obtiene el identificador único de la persona.
      *
-     * @return el ID de la persona.
+     * @return el {@code idPersona} de la persona.
      */
     public int getIdPersona() {
         return this.idPersona;
     }
 
     /**
-     * Establece el ID de la persona.
+     * Establece el identificador único de la persona.
      *
-     * @param idPersona el nuevo ID de la persona.
+     * @param idPersona El nuevo {@code idPersona} de la persona.
      */
     public void setIdPersona(int idPersona) {
         this.idPersona = idPersona;
@@ -108,7 +142,7 @@ public class Persona {
     /**
      * Establece el nombre de la persona.
      *
-     * @param nombre el nuevo nombre de la persona.
+     * @param nombre El nuevo nombre de la persona.
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -126,7 +160,7 @@ public class Persona {
     /**
      * Establece los apellidos de la persona.
      *
-     * @param apellidos los nuevos apellidos de la persona.
+     * @param apellidos Los nuevos apellidos de la persona.
      */
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
@@ -144,7 +178,7 @@ public class Persona {
     /**
      * Establece la edad de la persona.
      *
-     * @param edad la nueva edad de la persona.
+     * @param edad La nueva edad de la persona.
      */
     public void setEdad(int edad) {
         this.edad = edad;
